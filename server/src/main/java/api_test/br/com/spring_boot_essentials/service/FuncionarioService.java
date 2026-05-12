@@ -22,7 +22,7 @@ public class FuncionarioService {
 
     public FuncionarioModel atualizarFuncionario(FuncionarioModel funcionario){
 
-        FuncionarioModel existente = funcionarioRepository.findById(funcionario.getId()).orElseThrow(() -> 
+        FuncionarioModel existente = funcionarioRepository.findById(funcionario.getId()).orElseThrow(() ->
             new RecursoNaoEncontradoException("Funcionário não encontrado com ID: " + funcionario.getId()));
 
         return funcionarioRepository.save(funcionario);

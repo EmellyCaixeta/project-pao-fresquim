@@ -19,7 +19,7 @@ public class FuncionarioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    public Integer id;
     
     @NotBlank(message = "Nome é obrigatório")
     @Size(min = 3, max = 50, message = "Nome deve ter entre 3 e 50 caracteres")

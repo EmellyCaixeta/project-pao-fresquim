@@ -1,6 +1,7 @@
 package api_test.br.com.spring_boot_essentials.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
