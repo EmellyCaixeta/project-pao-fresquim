@@ -16,13 +16,13 @@ public class ProdutoController {
 
     public final ProdutoService produtoService;
 
-    @GetMapping
+    @GetMapping("/listar")
     @ResponseStatus(HttpStatus.OK)
     public List<ProdutoModel> listarProdutos() {
         return produtoService.listar();
     }
 
-    @PostMapping
+    @PostMapping("/adicionar")
     @ResponseStatus(HttpStatus.CREATED)
     public ProdutoModel adicionarProduto(@Valid @RequestBody ProdutoModel produtoModel) {
         return produtoService.salvar(produtoModel);

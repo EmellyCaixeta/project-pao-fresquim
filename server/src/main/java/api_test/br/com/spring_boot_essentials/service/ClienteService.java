@@ -18,6 +18,10 @@ public class ClienteService {
         return clienteRepository.save(clienteModel);
     }
 
+    public void deletarCliente(Integer clienteId) {
+       clienteRepository.deleteById(clienteId);
+    }
+
     public boolean validarSerasa(Integer clienteId){
 
         ClienteModel cliente = clienteRepository.findById(clienteId).orElseThrow(() ->

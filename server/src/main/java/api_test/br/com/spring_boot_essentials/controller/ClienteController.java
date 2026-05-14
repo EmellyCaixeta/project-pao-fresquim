@@ -15,13 +15,19 @@ public class ClienteController {
 
     private final ClienteService clienteService;
 
-    @PostMapping
+    @PostMapping("/salvar")
     @ResponseStatus(HttpStatus.CREATED)
     public ClienteModel salvar(@Valid @RequestBody ClienteModel clienteModel) {
         return clienteService.cadastrarCliente(clienteModel);
     }
 
-    @GetMapping("/{id}")
+    @DeleteMapping("/deletar")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(Integer id) {
+        clienteService.deletarCliente(id);
+    }
+
+    @GetMapping("/deletar/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Boolean status(@PathVariable Integer id){
         return clienteService.validarSerasa(id);

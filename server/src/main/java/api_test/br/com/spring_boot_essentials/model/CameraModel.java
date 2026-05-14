@@ -22,6 +22,6 @@ public class CameraModel {
     @Column(name="status")
     private boolean status;
 
-    @Column(name="url_stram")
+    @Column(name="url_stream")
     private String urlStream;
 }
