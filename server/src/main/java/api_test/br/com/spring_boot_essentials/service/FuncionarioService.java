@@ -6,6 +6,8 @@ import api_test.br.com.spring_boot_essentials.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FuncionarioService {
 
@@ -16,11 +18,8 @@ public class FuncionarioService {
         return funcionarioRepository.save(funcionario);
     }
 
-    public FuncionarioModel listarFuncionario(FuncionarioModel funcionario) {
-        return funcionarioRepository.findById(funcionario.getId())
-                .orElseThrow(() ->
-                        new RecursoNaoEncontradoException("Funcionário não encontrado com ID: " + funcionario.getId())
-                );
+    public List<FuncionarioModel> listarFuncionario() {
+        return  funcionarioRepository.findAll();
     }
 
     public FuncionarioModel atualizarFuncionario(FuncionarioModel funcionario) {

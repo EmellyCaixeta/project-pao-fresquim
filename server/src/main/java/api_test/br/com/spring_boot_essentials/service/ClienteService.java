@@ -7,6 +7,8 @@ import api_test.br.com.spring_boot_essentials.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ClienteService {
 
@@ -47,5 +49,9 @@ public class ClienteService {
     public boolean checarClienteSerasa(String cpf){
 
         return cpf != null && cpf.startsWith("0");
+    }
+
+    public List<ClienteModel> listarClientes(){
+        return clienteRepository.findAll();
     }
 }

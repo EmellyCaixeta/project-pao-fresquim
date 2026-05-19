@@ -45,7 +45,7 @@ public class ClienteModel {
     @Enumerated
     private EnderecoModel endereco;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<VendaModel> vendas = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
