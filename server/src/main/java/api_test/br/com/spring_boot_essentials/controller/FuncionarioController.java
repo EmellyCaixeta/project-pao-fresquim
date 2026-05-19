@@ -19,13 +19,13 @@ public class FuncionarioController {
 
     @PostMapping("/cadastrar")
     @ResponseStatus(HttpStatus.CREATED)
-    public FuncionarioModel cadastrarFuncionario(@Valid FuncionarioModel funcionario){
+    public FuncionarioModel cadastrarFuncionario(@Valid @RequestBody FuncionarioModel funcionario){
         return funcionarioService.cadastrarFuncionario(funcionario);
     }
 
     @PutMapping("/atualizar/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public FuncionarioModel atualizarFuncionario(@Valid FuncionarioModel funcionario){
+    public FuncionarioModel atualizarFuncionario(@Valid @RequestBody FuncionarioModel funcionario){
         return funcionarioService.atualizarFuncionario(funcionario);
     }
 

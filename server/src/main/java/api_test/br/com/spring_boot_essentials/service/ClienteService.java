@@ -36,7 +36,7 @@ public class ClienteService {
         if(checarCliente) {
             bloquearCliente(cliente);
         }
-        return false;
+        return cliente.isBloqueado();
     }
 
     public void bloquearCliente(ClienteModel cliente){
@@ -48,7 +48,7 @@ public class ClienteService {
 
     public boolean checarClienteSerasa(String cpf){
 
-        return cpf != null && cpf.startsWith("0");
+        return cpf != null && cpf.equals("00000000000");
     }
 
     public List<ClienteModel> listarClientes(){
