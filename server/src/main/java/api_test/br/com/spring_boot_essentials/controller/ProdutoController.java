@@ -16,21 +16,28 @@ public class ProdutoController {
 
     public final ProdutoService produtoService;
 
-    @GetMapping("/listar")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<ProdutoModel> listarProdutos() {
         return produtoService.listar();
     }
 
-    @PostMapping("/adicionar")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ProdutoModel adicionarProduto(@Valid @RequestBody ProdutoModel produtoModel) {
         return produtoService.salvar(produtoModel);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProdutoModel atualizarProduto(@PathVariable Integer id, @Valid @RequestBody ProdutoModel produtoModel) {
+        produtoModel.setId(id);
+        return produtoService.salvar(produtoModel);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletarProduto(Integer id) {
+    public void deletarProduto(@PathVariable Integer id) {
         produtoService.deletarProduto(id);
     }
 }

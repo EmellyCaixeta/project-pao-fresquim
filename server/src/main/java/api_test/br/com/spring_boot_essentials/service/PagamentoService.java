@@ -1,59 +1,38 @@
 package api_test.br.com.spring_boot_essentials.service;
 
+import api_test.br.com.spring_boot_essentials.exception.RecursoNaoEncontradoException;
+import api_test.br.com.spring_boot_essentials.exception.RegraNegocioException;
 import api_test.br.com.spring_boot_essentials.model.PagamentoModel;
+import api_test.br.com.spring_boot_essentials.model.VendaModel;
 import api_test.br.com.spring_boot_essentials.repository.PagamentoRepository;
-import lombok.RequiredArgsConstructor;
+import api_test.br.com.spring_boot_essentials.repository.VendaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-@RequiredArgsConstructor
 public class PagamentoService {
 
-    private final PagamentoRepository pagamentoRepository;
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
 
-    // LISTAR PAGAMENTOS
-    public List<PagamentoModel> listar() {
-        return pagamentoRepository.findAll();
-    }
+    @Autowired
+    private VendaRepository vendaRepository;
 
-    // BUSCAR PAGAMENTO POR ID
-    public PagamentoModel buscarPorId(Integer id) {
-        return pagamentoRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException("Pagamento não encontrado com o ID: " + id)
-                );
-    }
+    public PagamentoModel registrarPagamento(Integer vendaId, PagamentoModel pagamentoModel) {
 
-    // REGISTRAR PAGAMENTO
-    public PagamentoModel registrar(PagamentoModel pagamentoModel) {
-        return pagamentoRepository.save(pagamentoModel);
-    }
+        VendaModel vendaModel = vendaRepository.findById(vendaId).orElseThrow(() -> 
+            new RecursoNaoEncontradoException("Venda não encontrada com ID: " + vendaId));
 
-    // DELETAR PAGAMENTO
-    public void deletar(Integer id) {
-
-        PagamentoModel pagamento = buscarPorId(id);
-
-        pagamentoRepository.delete(pagamento);
-    }
-
-    // PROCESSAR PAGAMENTO
-    public String processarPagamento(PagamentoModel pagamentoModel) {
-
-        String status = "Pagamento processado com sucesso.";
-
-        if (pagamentoModel.getValor() <= 0) {
-            status = "Pagamento inválido.";
+        if(!pagamentoModel.getValor().equals(vendaModel.getValorTotal())){
+            throw new RegraNegocioException("Valor do pagamento deve ser igual ao valor total da venda.");
         }
 
-        return status;
-    }
+        System.out.println("Pagamento realizado com sucesso!");
 
-    // VALIDAR PAGAMENTO
-    public Boolean validarPagamento(PagamentoModel pagamentoModel) {
+        vendaModel.setPagamento(pagamentoModel);
 
-        return pagamentoModel.getValor() > 0;
+        vendaRepository.save(vendaModel);
+
+        return vendaModel.getPagamento();
     }
 }

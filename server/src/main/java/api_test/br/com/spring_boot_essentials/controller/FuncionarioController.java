@@ -7,37 +7,28 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("funcionarios")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*")
 public class FuncionarioController {
 
     public final FuncionarioService funcionarioService;
 
-    @PostMapping("/cadastrar")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public FuncionarioModel cadastrarFuncionario(@Valid @RequestBody FuncionarioModel funcionario){
+    public FuncionarioModel cadastrarFuncionario(@Valid FuncionarioModel funcionario){
         return funcionarioService.cadastrarFuncionario(funcionario);
     }
 
-    @PutMapping("/atualizar/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public FuncionarioModel atualizarFuncionario(@Valid @RequestBody FuncionarioModel funcionario){
+    public FuncionarioModel atualizarFuncionario(@Valid FuncionarioModel funcionario){
         return funcionarioService.atualizarFuncionario(funcionario);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void excluirFuncionario(Integer id){
         funcionarioService.deletarFuncionario(id);
-    }
-
-    @GetMapping("/listar")
-    @ResponseStatus(HttpStatus.OK)
-    public List<FuncionarioModel> listarFuncionarios(){
-        return funcionarioService.listarFuncionario();
     }
 }

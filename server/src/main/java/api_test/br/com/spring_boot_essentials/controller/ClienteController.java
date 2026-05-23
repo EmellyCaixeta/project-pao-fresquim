@@ -8,12 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("clientes")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ClienteController {
 
     private final ClienteService clienteService;
@@ -24,21 +21,16 @@ public class ClienteController {
         return clienteService.cadastrarCliente(clienteModel);
     }
 
-    @GetMapping("/listar")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ClienteModel> listarClientes(){
-        return clienteService.listarClientes();
-    }
-
-    @DeleteMapping("/deletar/{id}")
+    @DeleteMapping("/deletar")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Integer id) {
+    public void deletar(Integer id) {
         clienteService.deletarCliente(id);
     }
 
-    @GetMapping()
+    @GetMapping("/deletar/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Boolean status(@PathVariable Integer id){
         return clienteService.validarSerasa(id);
     }
+
 }

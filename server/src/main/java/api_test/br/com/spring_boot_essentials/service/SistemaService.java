@@ -3,7 +3,6 @@ package api_test.br.com.spring_boot_essentials.service;
 import api_test.br.com.spring_boot_essentials.exception.RegraNegocioException;
 import api_test.br.com.spring_boot_essentials.model.ClienteModel;
 import api_test.br.com.spring_boot_essentials.model.FuncionarioModel;
-import api_test.br.com.spring_boot_essentials.model.PontoModel;
 import api_test.br.com.spring_boot_essentials.model.ProdutoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +27,7 @@ public class SistemaService {
 
     public ProdutoModel cadastarProduto(ProdutoModel produtoModel) {
 
-        if (produtoModel.getPreco() <= 0) {
+        if(produtoModel.getPreco() <= 0) {
             throw new RegraNegocioException("Preço do produto deve ser maior que zero.");
         }
 
@@ -36,28 +35,24 @@ public class SistemaService {
     }
 
     public ClienteModel cadastarCliente(ClienteModel clienteModel) {
+
         return clienteService.cadastrarCliente(clienteModel);
     }
 
-    public String abrirCameras() {
+    public String abrirCameras(){
         return monitoramentoService.visualizarCameras();
     }
 
-    public void registrarEntradaFuncionario(Integer funcionarioId) {
-
-        FuncionarioModel funcionario = funcionarioService.buscarPorId(funcionarioId);
-
-        PontoModel ponto = new PontoModel();
-        ponto.setFuncionario(funcionario);
-
-        pontoService.registrarEntrada(ponto);
+    public void registrarEntradaFuncionario (Integer funcionarioId){
+        pontoService.registrarEntrada(funcionarioId);
     }
 
-    public void registrarSaidaFuncionario(Integer pontoId) {
-        pontoService.registrarSaida(pontoId);
+    public void registrarSaidaFuncionario (Integer pontoId){
+        pontoService.registarSaida(pontoId);
     }
 
-    public FuncionarioModel cadastrarFuncionario(FuncionarioModel funcionarioModel) {
+    public FuncionarioModel cadastrarFuncionario (FuncionarioModel funcionarioModel){
         return funcionarioService.cadastrarFuncionario(funcionarioModel);
     }
+
 }
