@@ -56,7 +56,7 @@ export default function ProdutosPage() {
       await getProdutos();
     } catch (error) {
       console.error("Erro ao salvar produto:", error);
-      alert("Ocorreu um erro ao conectar com o servidor.");
+      toast.error("Ocorreu um erro ao conectar com o servidor.");
     }
   };
 
@@ -105,7 +105,7 @@ export default function ProdutosPage() {
         <table className="w-full text-left">
           <thead className="bg-gray-50 text-[11px] uppercase text-gray-400 font-bold">
             <tr>
-              <th className="px-6 py-4">Código</th>
+              <th className="px-6 py-4">Cód. Barras</th>
               <th className="px-6 py-4">Produto</th>
               <th className="px-6 py-4">Categoria</th>
               <th className="px-6 py-4">Preço</th>
@@ -141,7 +141,7 @@ export default function ProdutosPage() {
                   className="hover:bg-gray-50/50 transition-colors group"
                 >
                   <td className="px-6 py-4 font-bold text-gray-700">
-                    {prod.codProduto}
+                    {prod.codigoBarras}
                   </td>
                   <td className="px-6 py-4 font-bold text-gray-700">
                     {prod.nome}
@@ -151,7 +151,7 @@ export default function ProdutosPage() {
                   </td>
                   <td className="px-6 py-4 font-bold">R$ {prod.preco}</td>
                   <td className="px-6 py-4 text-center font-medium text-gray-600">
-                    {prod.estoque}
+                    {prod.quantidade}
                   </td>
                   <td className="px-6 py-4 text-right">
                     <div className="flex justify-end gap-2">

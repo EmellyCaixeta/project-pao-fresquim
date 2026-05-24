@@ -14,7 +14,7 @@ export default function ModalCliente({
     email: "",
     cpf: "",
     telefone: "",
-    // negativado: "Positivo",
+    bloqueado: false,
   };
 
   const [formData, setFormData] = useState(estadoInicial);
@@ -31,18 +31,18 @@ export default function ModalCliente({
     e.preventDefault();
 
     const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-
     if (!regexEmail.test(formData.email)) {
       toast.error("Por favor, digite um e-mail válido!");
       return;
     }
 
-    if (formData.cpf.length < 11) {
+    const cpfSomenteNumeros = formData.cpf.replace(/\D/g, "");
+    if (cpfSomenteNumeros.length !== 11) {
       toast.error("Por favor, digite o CPF completo!");
       return;
     }
 
-    onSave(formData);
+    onSave({ ...formData, cpf: cpfSomenteNumeros });
   };
 
   return (
@@ -91,8 +91,8 @@ export default function ModalCliente({
               CPF
             </label>
             <IMaskInput
-              mask="000000000000"
-              // placeholder="___.___.___-__"
+              mask="000.000.000-00"
+              placeholder="___.___.___-__"
               required
               className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-orange-500"
               value={formData.cpf}
@@ -124,13 +124,13 @@ export default function ModalCliente({
           <select
             required
             className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-orange-500 font-medium text-gray-700"
-            value={formData.negativado}
+            value={formData.bloqueado ? "true" : "false"}
             onChange={(e) =>
-              setFormData({ ...formData, negativado: e.target.value })
+              setFormData({ ...formData, bloqueado: e.target.value === "true" })
             }
           >
-            <option value="Positivo">Positivo</option>
-            <option value="Negativado">Negativado</option>
+            <option value="false">Positivo</option>
+            <option value="true">Negativado</option>
           </select>
         </div>
 

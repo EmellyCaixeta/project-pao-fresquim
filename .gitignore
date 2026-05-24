@@ -79,3 +79,7 @@ client/node_modules/
 client/.next/
 server/target/
 server/.mvn/wrapper/maven-wrapper.jar
+
+# Não pode deixar a .env porque a aplicação precisa ser segura
+# Se você deixar a env a mostra, os hackers podem acabar com nosso projeto :(
+.env

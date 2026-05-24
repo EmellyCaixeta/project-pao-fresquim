@@ -1,5 +1,6 @@
 package api_test.br.com.spring_boot_essentials.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,9 +28,8 @@ public class LicencaModel {
     @Column(name="dataFim")
     private Date dataFim;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name="funcionario_id")
     private FuncionarioModel funcionario;
-
-
 }

@@ -10,9 +10,9 @@ export default function ModalProduto({
   const estadoInicial = {
     nome: "",
     categoria: "",
-    estoque: "",
+    quantidade: "",
     preco: "",
-    codProduto: "",
+    codigoBarras: "",
   };
 
   const [formData, setFormData] = useState(estadoInicial);
@@ -27,7 +27,11 @@ export default function ModalProduto({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData);
+    onSave({
+      ...formData,
+      quantidade: formData.quantidade !== "" ? parseInt(formData.quantidade, 10) : null,
+      preco: formData.preco !== "" ? parseFloat(String(formData.preco).replace(",", ".")) : null,
+    });
   };
 
   return (
@@ -62,7 +66,6 @@ export default function ModalProduto({
               Categoria
             </label>
             <input
-              required
               type="text"
               className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-orange-500"
               value={formData.categoria}
@@ -77,17 +80,17 @@ export default function ModalProduto({
           </div>
           <div>
             <label className="block text-xs font-bold text-gray-400 uppercase mb-1">
-              Estoque
+              Quantidade em Estoque
             </label>
             <input
               required
-              type="text"
+              type="number"
+              min="0"
               className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-orange-500"
-              value={formData.estoque}
-              onChange={(e) => {
-                const apenasNumeros = e.target.value.replace(/\D/g, "");
-                setFormData({ ...formData, estoque: apenasNumeros });
-              }}
+              value={formData.quantidade}
+              onChange={(e) =>
+                setFormData({ ...formData, quantidade: e.target.value })
+              }
             />
           </div>
         </div>
@@ -108,21 +111,21 @@ export default function ModalProduto({
               }}
             />
           </div>
-        </div>
-        <div>
-          <label className="block text-xs font-bold text-gray-400 uppercase mb-1">
-            Código do Produto
-          </label>
-          <input
-            required
-            type="text"
-            className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-orange-500"
-            value={formData.codProduto}
-            onChange={(e) => {
-              const apenasNumeros = e.target.value.replace(/\D/g, "");
-              setFormData({ ...formData, codProduto: apenasNumeros });
-            }}
-          />
+          <div>
+            <label className="block text-xs font-bold text-gray-400 uppercase mb-1">
+              Código de Barras
+            </label>
+            <input
+              required
+              type="text"
+              className="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-2 outline-none focus:border-orange-500"
+              value={formData.codigoBarras}
+              onChange={(e) => {
+                const apenasNumeros = e.target.value.replace(/\D/g, "");
+                setFormData({ ...formData, codigoBarras: apenasNumeros });
+              }}
+            />
+          </div>
         </div>
 
         <button

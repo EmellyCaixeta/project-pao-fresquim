@@ -1,5 +1,6 @@
 package api_test.br.com.spring_boot_essentials.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -38,6 +39,7 @@ public class VendaModel {
     @JoinColumn(name = "pagamento_id", referencedColumnName = "id")
     private PagamentoModel pagamento;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteModel cliente;

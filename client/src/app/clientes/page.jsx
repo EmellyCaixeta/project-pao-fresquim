@@ -164,16 +164,16 @@ export default function ClientesPage() {
                     <td className="px-6 py-4 text-center">
                       <span
                         className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${
-                          cliente.negativado === "Negativado"
+                          cliente.bloqueado
                             ? "bg-red-50 text-red-600"
                             : "bg-emerald-50 text-emerald-600"
                         }`}
                       >
-                        {cliente.negativado || "Positivo"}
+                        {cliente.bloqueado ? "Negativado" : "Positivo"}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <div className="flex justify-end gap-2 ">
+                      <div className="flex justify-end gap-2">
                         <button
                           onClick={() =>
                             setModalConfig({

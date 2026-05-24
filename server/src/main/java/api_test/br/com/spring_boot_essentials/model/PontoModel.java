@@ -1,6 +1,6 @@
 package api_test.br.com.spring_boot_essentials.model;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +27,7 @@ public class PontoModel {
     @Column(nullable = false)
     private LocalTime horaSaida;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "funcionario_id")
     private FuncionarioModel funcionario;
