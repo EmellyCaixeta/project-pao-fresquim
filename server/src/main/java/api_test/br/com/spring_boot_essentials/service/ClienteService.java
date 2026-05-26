@@ -1,12 +1,13 @@
 package api_test.br.com.spring_boot_essentials.service;
 
-import api_test.br.com.spring_boot_essentials.exception.RecursoNaoEncontradoException;
-import api_test.br.com.spring_boot_essentials.model.ClienteModel;
-import api_test.br.com.spring_boot_essentials.repository.ClienteRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import api_test.br.com.spring_boot_essentials.exception.RecursoNaoEncontradoException;
+import api_test.br.com.spring_boot_essentials.model.ClienteModel;
+import api_test.br.com.spring_boot_essentials.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
@@ -23,8 +24,14 @@ public class ClienteService {
     }
 
     public void deletarCliente(Integer clienteId) {
-        clienteRepository.deleteById(clienteId);
-    }
+
+    ClienteModel cliente = clienteRepository.findById(clienteId)
+            .orElseThrow(() ->
+                    new RecursoNaoEncontradoException("Cliente não encontrado com ID: " + clienteId)
+            );
+
+    clienteRepository.delete(cliente);
+}
 
     public boolean validarSerasa(Integer clienteId) {
         ClienteModel cliente = clienteRepository.findById(clienteId).orElseThrow(() ->
