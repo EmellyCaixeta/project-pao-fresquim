@@ -30,8 +30,11 @@ export default function ClientesPage() {
       const response = await api.get("/clientes/listar", { params });
       setClientes(response.data);
     } catch (error) {
-      toast.error("Erro ao buscar clientes.");
-    } finally {
+  const mensagem =
+    error?.response?.data?.mensagem || "Erro ao buscar clientes.";
+
+  toast.error(mensagem);
+} finally {
       setIsLoading(false);
     }
   }
@@ -46,8 +49,11 @@ export default function ClientesPage() {
       await getClientes();
       toast.success("Cliente excluído!");
     } catch (error) {
-      toast.error("Erro ao excluir o cliente.");
-    }
+  const mensagem =
+    error?.response?.data?.mensagem || "Erro ao excluir o cliente.";
+
+  toast.error(mensagem);
+}
   }
 
   const handleSaveCliente = async (dadosDoFormulario) => {
@@ -63,8 +69,12 @@ export default function ClientesPage() {
       setModalConfig({ isOpen: false, clienteEditando: null });
       await getClientes();
     } catch (error) {
-      toast.error("Ocorreu um erro ao conectar com o servidor.");
-    }
+  const mensagem =
+    error?.response?.data?.mensagem ||
+    "Ocorreu um erro ao conectar com o servidor.";
+
+  toast.error(mensagem);
+}
   };
 
   const termoBusca = busca?.toLowerCase() || "";

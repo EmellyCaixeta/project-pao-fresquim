@@ -22,8 +22,10 @@ export default function ProdutosPage() {
       const response = await api.get("/produtos", { params });
       setProdutos(response.data);
     } catch (error) {
-      toast.error("Erro ao buscar produtos.");
-    } finally {
+  toast.error(
+    error?.response?.data?.mensagem || "Erro ao buscar produtos."
+  );
+} finally {
       setIsLoading(false);
     }
   }
@@ -37,9 +39,10 @@ export default function ProdutosPage() {
       await api.delete(`/produtos/${id}`);
       await getProdutos();
     } catch (error) {
-      console.error("Erro ao excluir produto:", error);
-      alert("Erro ao excluir produto.");
-    }
+  toast.error(
+    error?.response?.data?.mensagem || "Erro ao excluir o produto."
+  );
+}
   }
 
   const handleSaveProduto = async (dadosDoFormulario) => {
@@ -55,9 +58,12 @@ export default function ProdutosPage() {
       setModalConfig({ isOpen: false, produtoEditando: null });
       await getProdutos();
     } catch (error) {
-      console.error("Erro ao salvar produto:", error);
-      toast.error("Ocorreu um erro ao conectar com o servidor.");
-    }
+  const mensagem =
+    error?.response?.data?.mensagem ||
+    "Ocorreu um erro ao conectar com o servidor.";
+
+  toast.error(mensagem);
+}
   };
 
   const termoBusca = busca?.toLowerCase() || "";

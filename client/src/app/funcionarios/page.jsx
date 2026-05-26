@@ -27,9 +27,10 @@ export default function FuncionariosPage() {
       setFuncionarios(response.data);
 
     } catch (error) {
-      toast.error("Erro ao buscar funcionários.");
-
-    } finally {
+  toast.error(
+    error?.response?.data?.mensagem || "Erro ao buscar funcionários."
+  );
+} finally {
       setIsLoading(false);
     }
   }
@@ -47,8 +48,10 @@ export default function FuncionariosPage() {
       toast.success("Funcionário desligado/excluído!");
 
     } catch (error) {
-      toast.error("Erro ao excluir o funcionário.");
-    }
+  toast.error(
+    error?.response?.data?.mensagem || "Erro ao excluir o funcionário."
+  );
+}
   }
 
   const handleSaveFuncionario = async (dadosDoFormulario) => {
@@ -87,9 +90,11 @@ export default function FuncionariosPage() {
       await getFuncionarios();
 
     } catch (error) {
-      console.error(error);
-      toast.error("Ocorreu um erro ao conectar com o servidor.");
-    }
+  toast.error(
+    error?.response?.data?.mensagem ||
+      "Ocorreu um erro ao conectar com o servidor."
+  );
+}
   };
 
   const termoBusca = busca?.toLowerCase() || "";
